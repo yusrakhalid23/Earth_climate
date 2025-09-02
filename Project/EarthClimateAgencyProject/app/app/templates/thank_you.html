@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You - EarthScape Climate Agency</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #121212;
+            color: #f0f0f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-top: 80px;
+            margin-bottom: 80px;
+        }
+
+        .thank-you-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #1e1e1e;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+            text-align: center;
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        .thank-you-container h2 {
+            color: #00cc99;
+        }
+
+        .thank-you-container p {
+            color: #cccccc;
+            font-size: 1.1rem;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #00cc99;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #00b386;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background-color: #1f1f1f;
+            color: #cccccc;
+            text-align: center;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        footer a {
+            color: #00cc99;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #00ffcc;
+            text-decoration: underline;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Back Button -->
+    <a href="{{ url_for('main.index') }}" class="back-button">
+        &larr; Back to Home
+    </a>
+
+    <!-- Thank You Message -->
+    <div class="container">
+        <div class="thank-you-container mt-5">
+            <h2>Thank You!</h2>
+            <p>Your feedback has been successfully submitted. We appreciate your input and will use it to improve our services.</p>
+        </div>
+    </div>
+
+    
+
+</body>
+
+</html>

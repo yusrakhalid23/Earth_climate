@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register - EarthScape Climate Agency</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #00b386, #00b386);
+      font-family: 'Segoe UI', sans-serif;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar {
+    background-color: #1f1f1f;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    padding: 0.8rem 1rem;
+    transition: background-color 0.3s ease;
+}
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #00cc99 !important;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: linear-gradient(45deg, #00cc99, #00ffcc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: logoPulse 2s infinite;
+}
+
+@keyframes logoPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+}
+
+
+.navbar-brand img {
+    margin-right: 10px;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(0, 204, 153, 0.6);
+}
+
+.nav-link {
+    color: #f0f0f0 !important;
+    font-weight: 500;
+    margin-right: 15px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #00ffcc !important;
+    transform: translateY(-2px);
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%280, 204, 153, 0.7%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+    .hero {
+      background: url('https://www.earthscape.com/images/hero-bg.jpg') center/cover no-repeat;
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+      font-size: 2.2rem;
+      font-weight: bold;
+    }
+
+    .register-box {
+      background-color: #fff;
+      padding: 35px 30px;
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+      max-width: 550px;
+      width: 100%;
+      margin: 30px auto;
+      animation: fadeInUp 1s ease;
+    }
+
+    .register-box:hover {
+      transform: translateY(-6px);
+      transition: 0.3s ease-in-out;
+    }
+
+    .register-header {
+      color: #00b386;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .form-control:focus {
+      border-color: #00b386;
+      box-shadow: 0 0 6px rgba(0, 123, 255, 0.5);
+    }
+
+    .btn-primary {
+      background-color: #00b386;
+      border-color: #00b386;
+    }
+
+    .btn-primary:hover {
+      background-color: #00b386;
+      border-color: #00b386;
+    }
+
+    footer {
+            background-color: #1f1f1f;
+            color: #cccccc;
+            padding: 30px 0;
+        }
+    
+        footer a {
+            color: #00cc99;
+            text-decoration: none;
+        }
+    
+        footer a:hover {
+    color: #00ffcc;
+    text-decoration: underline;
+}
+.modal-header {
+    background: linear-gradient(45deg, #00b386, #00cc99);
+    color: white;
+    border-bottom: none;
+}
+
+.modal-footer {
+            background-color: #f8f9fa;
+        }
+        .modal-header {
+    background: linear-gradient(45deg, #00b386, #00cc99);
+    color: white;
+    border-bottom: none;
+}
+footer a:hover {
+    color: #00ffcc;
+    text-decoration: underline;
+}
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="#">
+      <span style="font-family: 'Orbitron', sans-serif;">ESC</span>
+  </a>
+           
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+  </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('main.index') }}">Home</a></li>
+        {% if session.get('username') %}
+        <li class="nav-item"><a class="nav-link" href="#">Welcome, {{ session['username'] }}</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a></li>
+        {% else %}
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login') }}">Login</a></li>
+        {% endif %}
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('feedback.submit_feedback') }}">Feedback</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    Join the Climate Movement
+  </div>
+
+  <!-- Register Form -->
+  <div class="container">
+    <div class="register-box animate__animated animate__fadeInUp">
+      <h3 class="register-header">Create Your Account</h3>
+      <form method="POST" action="{{ url_for('auth.register') }}">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" name="username" class="form-control" id="username" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" name="email" class="form-control" id="email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" name="password" class="form-control" id="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Register</button>
+        <p class="text-center mt-3">Already have an account? <a href="{{ url_for('auth.login') }}">Login here</a>.</p>
+      </form>
+    </div>
+  </div>
+
+ 
+    <!-- Footer Section -->
+    <!-- Footer Section -->
+    <footer class="text-light pt-5 pb-3" style="background: linear-gradient(135deg, #1f1f1f, #2a2a2a); border-top: 3px solid #00cc99;">
+      <div class="container">
+          <div class="row text-center text-md-left">
+              <div class="col-md-4 mb-3">
+                  <a class="navbar-brand" href="#">
+                      <span style="font-family: 'Orbitron', sans-serif;">ESC</span>
+                  </a>
+                  <p>Empowering sustainable futures with cutting-edge climate solutions.</p>
+              </div>
+              <div class="col-md-4 mb-3">
+                  <h6 class="text-uppercase mb-3">Quick Links</h6>
+                  <ul class="list-unstyled">
+                      <li><a href="{{ url_for('main.index') }}" class="text-light">Home</a></li>
+                      <li><a href="{{ url_for('auth.register') }}" class="text-light">Register</a></li>
+                      <li><a href="{{ url_for('feedback.submit_feedback') }}" class="text-light">Feedback</a></li>
+                      <li><a href="{{ url_for('auth.login') }}" class="text-light">Login</a></li>
+                  </ul>
+              </div>
+              <div class="col-md-4 mb-3">
+                  <h6 class="text-uppercase mb-3">Follow Us</h6>
+                  <a href="#" class="text-light mr-3"><i class="fab fa-facebook-f"></i></a>
+                  <a href="#" class="text-light mr-3"><i class="fab fa-twitter"></i></a>
+                  <a href="#" class="text-light mr-3"><i class="fab fa-instagram"></i></a>
+                  <a href="#" class="text-light"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+          </div>
+          <hr class="bg-light">
+          <div class="text-center">
+              <small>&copy; 2024 EarthScape Climate Agency. All rights reserved.</small>
+          </div>
+      </div>
+  </footer>
+  
+
+  <!-- JS Scripts -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Notifications - EarthScape Climate Agency</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css"/>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #e6f2f2, #ffffff);
+      color: #1a1a1a;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .navbar {
+      background: #0b3d3b;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      padding: 0.8rem 1rem;
+    }
+
+    .navbar-brand {
+      font-weight: 800;
+      color: #00ffd0 !important;
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+    }
+
+    .nav-link {
+      color: #ffffff !important;
+      font-weight: 500;
+      margin-right: 1rem;
+    }
+
+    .nav-link:hover {
+      color: #00ffd0 !important;
+    }
+
+    .container {
+      margin-top: 4rem;
+      flex-grow: 1;
+    }
+
+    h2 {
+      font-weight: 700;
+      color: #0b807b;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 20px rgba(0, 128, 123, 0.2);
+    }
+
+    .card-title {
+      color: #0b807b;
+      font-weight: 600;
+    }
+
+    .btn-primary {
+      background-color: #0b807b;
+      border: none;
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 16px;
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #066e6a;
+      transform: translateY(-2px);
+    }
+
+    footer {
+      background-color: #0b3d3b;
+      color: #cccccc;
+      padding: 2rem 0;
+      margin-top: auto;
+    }
+
+    footer a {
+      color: #99ffef;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="#">ESC</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('main.index') }}">Home</a></li>
+        {% if session.get('username') %}
+        <li class="nav-item"><a class="nav-link" href="#">Welcome, {{ session['username'] }}</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a></li>
+        {% else %}
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login') }}">Login</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.register') }}">Register</a></li>
+        {% endif %}
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('feedback.submit_feedback') }}">Feedback</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container">
+    <h2 data-aos="fade-down">Global Climate News</h2>
+    {% if news_data %}
+    <div class="row">
+      {% for news in news_data %}
+      <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+        <div class="card">
+          <img class="card-img-top" src="{{ news.urlToImage or 'default_image_url.jpg' }}" alt="News Image">
+          <div class="card-body">
+            <h5 class="card-title">{{ news.title }}</h5>
+            <p class="card-text">{{ news.description }}</p>
+            <a href="{{ news.url }}" target="_blank" class="btn btn-primary">Read More</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-center">No climate news available at the moment.</p>
+    {% endif %}
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container text-center">
+      <div class="row">
+        <div class="col-md-4">
+          <h6>EarthScape</h6>
+          <p>Innovating climate awareness through data and AI.</p>
+        </div>
+        <div class="col-md-4">
+          <h6>Links</h6>
+          <a href="{{ url_for('main.index') }}">Home</a> |
+          <a href="{{ url_for('auth.register') }}">Register</a> |
+          <a href="{{ url_for('feedback.submit_feedback') }}">Feedback</a>
+        </div>
+        <div class="col-md-4">
+          <h6>Social</h6>
+          <a href="#"><i class="fab fa-facebook-f me-2"></i></a>
+          <a href="#"><i class="fab fa-twitter me-2"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <hr />
+      <p>&copy; 2024 EarthScape Climate Agency. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+  </script>
+</body>
+</html>

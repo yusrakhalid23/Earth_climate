@@ -1,0 +1,14 @@
+import logging
+from logging.handlers import RotatingFileHandler
+
+# Configuring logging with log rotation
+handler = RotatingFileHandler('logs/app.log', maxBytes=10**6, backupCount=3)
+handler.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s %(levelname)s: %(message)s')
+handler.setFormatter(formatter)
+
+# Adding the handler to the root logger
+logging.getLogger().addHandler(handler)
+
+# Example logging
+logging.info('Application started.')

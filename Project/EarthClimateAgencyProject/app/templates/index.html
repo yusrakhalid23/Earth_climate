@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EarthScape Climate Agency</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right, #e6f2f2, #ffffff);
+      color: #1a1a1a;
+    }
+
+    .navbar {
+      background: #0b3d3b;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .navbar-brand {
+      font-weight: 800;
+      color: #00ffd0 !important;
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+    }
+
+    .nav-link {
+      color: #ffffff !important;
+      font-weight: 500;
+      margin-right: 1rem;
+    }
+
+    .nav-link:hover {
+      color: #00ffd0 !important;
+    }
+
+    .hero {
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    position: relative;
+    background: center center/cover no-repeat;
+  }
+
+  .hero::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+  }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    .features {
+      padding: 4rem 0;
+      background: #ffffff;
+    }
+
+    .features .card {
+      border: none;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      transition: 0.3s;
+    }
+
+    .features .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 30px rgba(0, 255, 208, 0.3);
+    }
+
+    .features .card-body i {
+      font-size: 2.2rem;
+      color: #0b807b;
+    }
+
+    .cta {
+      background: linear-gradient(135deg, #0b807b, #00ffd0);
+      color: #fff;
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+
+    .footer {
+      background-color: #0b3d3b;
+      color: #cccccc;
+      padding: 2rem 0;
+    }
+
+    .footer a {
+      color: #99ffef;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark px-3">
+    <a class="navbar-brand" href="#">ESC</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('main.index') }}">Home</a></li>
+        {% if session.get('username') %}
+        <li class="nav-item"><a class="nav-link">Welcome, {{ session['username'] }}</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a></li>
+        {% else %}
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login') }}">Login</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.register') }}">Register</a></li>
+        {% endif %}
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('feedback.submit_feedback') }}">Feedback</a></li>
+      </ul>
+    </div>
+  </nav>
+<section class="hero" style="background-image: url('{{ url_for('static', filename='images/b2.jpg') }}?v={{ now.timestamp() }}');">
+
+    
+  <div class="hero-content">
+    <h1>Discover Our Changing Planet</h1>
+    <p>Explore visual data, machine learning insights, and stay alert with EarthScape.</p>
+    <a href="{{ url_for('auth.register') }}" class="btn btn-light btn-lg mt-3">Get Started</a>
+  </div>
+</section>
+
+
+
+  <section class="features container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold">Our Services</h2>
+      <p>We offer AI-powered insights and responsive tools for climate awareness.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card text-center p-3">
+          <div class="card-body">
+            <i class="fas fa-chart-line mb-3"></i>
+            <h5>Data Visualization</h5>
+            <p>Dynamic graphs and charts to explore climate data trends.</p>
+            <a href="{{ url_for('main.visualization') }}" class="btn btn-outline-dark">Explore</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-center p-3">
+          <div class="card-body">
+            <i class="fas fa-brain mb-3"></i>
+            <h5>AI Predictions</h5>
+            <p>Cutting-edge models that analyze and predict climate events.</p>
+            <a href="{{ url_for('main.predict') }}" class="btn btn-outline-dark">Predict</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-center p-3">
+          <div class="card-body">
+            <i class="fas fa-bell mb-3"></i>
+            <h5>Real-Time Alerts</h5>
+            <p>Stay informed with instant notifications on environmental changes.</p>
+            <a href="{{ url_for('notifications.view_notifications') }}" class="btn btn-outline-dark">Notify Me</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h3 class="fw-bold">Join the Movement for a Sustainable Future</h3>
+    <p class="mt-3">Start your climate journey today with EarthScape insights and tools.</p>
+    <a href="{{ url_for('auth.register') }}" class="btn btn-dark btn-lg mt-2">Sign Up</a>
+  </section>
+
+  <footer class="footer mt-5">
+    <div class="container text-center">
+      <div class="row">
+        <div class="col-md-4">
+          <h6>EarthScape</h6>
+          <p>Innovating climate awareness through data and AI.</p>
+        </div>
+        <div class="col-md-4">
+          <h6>Links</h6>
+          <a href="{{ url_for('main.index') }}">Home</a> | 
+          <a href="{{ url_for('auth.register') }}">Register</a> | 
+          <a href="{{ url_for('feedback.submit_feedback') }}">Feedback</a>
+        </div>
+        <div class="col-md-4">
+          <h6>Social</h6>
+          <a href="#"><i class="fab fa-facebook-f me-2"></i></a>
+          <a href="#"><i class="fab fa-twitter me-2"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <hr>
+      <p>&copy; 2024 EarthScape Climate Agency. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
